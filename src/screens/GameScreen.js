@@ -87,7 +87,7 @@ const GameScreen =({navigation})=>{
 	const [gameState, setGameState] = useState(player.position=== 'Goalkeeper' ? gkState : playerState);
 	const [minutes, setMinutes] = useState(0);
 	const [isActive, setIsActive] = useState(false);
-
+	const [showHelp, setShowHelp] = useState(false);
 	const toggle= ()=> {
 		setIsActive(!isActive);
 	}
@@ -95,6 +95,9 @@ const GameScreen =({navigation})=>{
 	const reset=()=> {
 		setMinutes(0);
 		setIsActive(false);
+	}
+	const toggleHelp = () => {
+		setShowHelp(!showHelp);
 	}
 	const [visible, setVisible] = useState(false);
 	const [input, setInput] = useState('');
@@ -104,6 +107,7 @@ const GameScreen =({navigation})=>{
 	useEffect(() => {
 	    let interval = null;
 	    navigation.setParams({title:name});
+	    navigation.setParams({toggleHelp});
 	    if (isActive) {
 			interval = setInterval(() => {
 				setMinutes(minutes => minutes + 1);
@@ -128,6 +132,7 @@ const GameScreen =({navigation})=>{
 			<FlatList
 				data={setUp()}
 				keyExtractor={(b)=>b.title}
+				showsVerticalScrollIndicator={false}
 				numColumns={3}
 				ListHeaderComponent={
 					<View>
@@ -203,7 +208,19 @@ const GameScreen =({navigation})=>{
 					)
 				}}
 			/>
+			<Overlay isVisible={showHelp} onBackdropPress={toggleHelp} overlayStyle={styles.overlay}>
+				<View>
+					<View style={{flexDirection:'row', marginBottom:10, marginTop:5, marginLeft:5}}>
+						<MaterialCommunityIcons name='help-circle' size={35} color='#02a1e6' style={{marginRight:10}}/>
+						<Text style={styles.title}>Help</Text>
+					</View>
+					<Text style={styles.text}>Tap to increase the stat</Text>
+					<Text style={styles.text}>Press and hold to decrease the stat</Text>
+					<Text style={styles.text}>When you are done tracking the game press Game Over</Text>
+					<Text style={styles.text}>If you didn't use our timer to track the minutes played you will be prompted to input the number of minutes</Text>
 
+				</View>
+			</Overlay>
 			<Overlay isVisible={visible} onBackdropPress={toggleOverlay} overlayStyle={styles.overlay}>
 				<View>
 					<Text style={styles.label}>Minutes Played</Text>
@@ -340,7 +357,17 @@ const styles = StyleSheet.create({
 		borderRadius:25,
 		width:width*0.9,
 		padding:20
+	},
+	text:{
+		fontSize:20,
+		marginVertical:10,
+		marginHorizontal:10
+	},
+	title:{
+		fontSize:25,
+		color:'#02a1e6'
 	}
+
 })
 
 

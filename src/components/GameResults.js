@@ -59,6 +59,7 @@ const GameResults = ({minutes,stats,player})=>{
 			<FlatList
 				data={gkItems}
 				keyExtractor={(b)=>b.title}
+				showsVerticalScrollIndicator={false}
 				ListHeaderComponent={
 					<View>
 						<ListItem
@@ -113,6 +114,7 @@ const GameResults = ({minutes,stats,player})=>{
 			<FlatList
 				data={items}
 				keyExtractor={(b)=>b.title}
+				showsVerticalScrollIndicator={false}
 				ListHeaderComponent={
 					<View>
 						<ListItem

@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import {createDrawerNavigator} from 'react-navigation-drawer';
 import {Provider} from 'react-redux';
 import configureStore from './src/store';
-import HomeScreen from './src/screens/HomeScreen';
+import LandingScreen from './src/screens/LandingScreen';
 import SignupScreen from './src/screens/SignupScreen';
 import SigninScreen from './src/screens/SigninScreen';
 import GameScreen from './src/screens/GameScreen';
@@ -21,6 +21,7 @@ import Header from './src/components/Header';
 import CustomDrawer from './src/components/CustomDrawer';
 import {setNavigator} from './src/navigationRef';
 import {MaterialCommunityIcons, FontAwesome} from '@expo/vector-icons';
+import {TouchableOpacity} from 'react-native';
 
 const store = configureStore();
 
@@ -29,17 +30,33 @@ const store = configureStore();
 const switchNavigator =  createSwitchNavigator({
   Auth:AuthenticateScreen,
   loginFlow:createStackNavigator({
-    Signup:{screen:SignupScreen,navigationOptions:{headerShown:false}},
-    Signin:{screen:SigninScreen, navigationOptions:{headerShown:false}}
+    Landing:{screen:LandingScreen,navigationOptions:{headerShown:false}},
+    Signup:{screen:SignupScreen,navigationOptions:{title:''}},
+    Signin:{screen:SigninScreen, navigationOptions:{title:''}}
+  },{
+    defaultNavigationOptions:{
+      headerTintColor: '#02a1e6',
+      headerStyle: {
+        backgroundColor: '#fff',
+        height:100,
+        borderWidth:0
+      },
+      headerTransparent:true
+    }
   }),
   mainFlow:createDrawerNavigator({
     gameFlow:createStackNavigator({
       CreateGame:{screen:CreateGameScreen, navigationOptions:({navigation})=>{
-        return {headerTitle:()=><Header navigation={navigation} title='SuperSoccerDad  '/>}
+        return {headerTitle:()=><Header navigation={navigation} title='StatTrack  '/>}
       }},
       Game:{screen:GameScreen, navigationOptions :({ navigation }) => {
         return {
           title: navigation.getParam('title', 'Game'),
+          headerRight:({tintColor})=>(
+            <TouchableOpacity onPress={navigation.getParam('toggleHelp')}>
+              <MaterialCommunityIcons name='help-circle' size={35} color={tintColor} style={{marginRight:10}}/>
+            </TouchableOpacity>
+          )
         };
       }},
       Endgame:{screen:EndgameScreen, navigationOptions:({ navigation }) => {

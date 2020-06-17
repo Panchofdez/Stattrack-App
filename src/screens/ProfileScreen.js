@@ -59,6 +59,7 @@ const ProfileScreen = ({navigation})=>{
 				<FlatList
 					data={gkItems}
 					keyExtractor={(i)=>i.title}
+					showsVerticalScrollIndicator={false}
 					ListHeaderComponent={
 						<View>
 							<ListItem

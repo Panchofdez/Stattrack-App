@@ -24,6 +24,7 @@ const PlayerProfilesScreen = ({navigation})=>{
 			<FlatList
 				data={playerProfiles}
 				keyExtractor={(p)=>p.name}
+				showsVerticalScrollIndicator={false}
 				renderItem={({item})=>{
 					return(
 						<TouchableOpacity onPress={()=>navigation.navigate('Profile', {profile:item})} activeOpacity={0.85}>

@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet, Dimensions} from 'react-native';
-import {MaterialIcons} from '@expo/vector-icons';
+import {View, Text, StyleSheet, Dimensions, TouchableOpacity} from 'react-native';
+import {MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -17,6 +17,19 @@ const Header = ({navigation, title})=>{
 			<View>
 				<Text style={styles.headerText}>{title}</Text>
 			</View>
+			{title.trim()==='StatTrack' && (
+				<TouchableOpacity style={styles.helpIcon} >
+		            <MaterialCommunityIcons 
+		            	name='help-circle' 
+		            	size={35} 
+		            	color='#02a1e6'
+		            	onPress={navigation.getParam('toggleHelpOverlay')}
+		            />
+	            </TouchableOpacity>
+
+			)}
+			
+
 		</View>
 
 	)
@@ -41,6 +54,11 @@ const styles = StyleSheet.create({
 		position:'absolute',
 		left:5,
 		color:'#02a1e6'
+	},
+	helpIcon:{
+		position:'absolute',
+		right:5,
+		
 	}
 })
 

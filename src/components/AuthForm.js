@@ -13,7 +13,7 @@ const AuthForm = ({btnText, type})=>{
 	const [email, setEmail] = useState("");
 	const [password, setPassword]= useState("");
 	return (
-		<View>
+		<View style={styles.container}>
 			<Spacer>
 				<Input
 					label="Email"
@@ -34,9 +34,10 @@ const AuthForm = ({btnText, type})=>{
 				/>
 			</Spacer>
 			{error ? (
-				<Spacer>
+				<React.Fragment>
 		        	<Text style={styles.errorMessage}>{error}</Text>
-		        </Spacer>
+		        	<Spacer/>
+		        </React.Fragment>
 		    	) : null}
 		    
 			<Spacer>
@@ -57,8 +58,10 @@ const styles= StyleSheet.create({
 	errorMessage:{
 	    fontSize: 16,
 	    color: 'red',
-	    marginLeft: 15,
-	    marginTop: 15
+	    marginLeft: 25,
+	},
+	container:{
+		marginTop:50
 	}
 }); 
 

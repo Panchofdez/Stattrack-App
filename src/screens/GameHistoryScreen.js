@@ -27,6 +27,7 @@ const GameHistoryScreen = ({navigation})=>{
 		setLoading(false);
 	}
 	useEffect(()=>{
+		console.log('arrived');
 		fetch();
 	},[])
 	if (loading){
@@ -37,6 +38,7 @@ const GameHistoryScreen = ({navigation})=>{
 				<FlatList
 					data={filterGames(games, search)}
 					keyExtractor={(item, index)=>index.toString()}
+					showsVerticalScrollIndicator={false}
 					ListHeaderComponent={
 						<View>
 							<SearchBar

@@ -25,6 +25,7 @@ export const getPlayerProfiles = ()=>{
 			dispatch(fetchPlayerProfiles(response.data));
 			return response.data;
 		}catch(err){
+			console.log('error');
 			dispatch(addErrorMessage(err.response.data.error));
 		}
 		

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, SafeAreaView, Dimensions, FlatList, TouchableOpacity,Alert} from 'react-native';
-import {Text, Button, CheckBox, SearchBar} from 'react-native-elements';
+import {Text, Button, CheckBox, SearchBar, Overlay} from 'react-native-elements';
 import {useDispatch, useSelector} from 'react-redux';
 import { NavigationEvents} from 'react-navigation';
 import {trackGame} from '../store/actions/game';
@@ -15,6 +15,11 @@ const height = Dimensions.get('window').height;
 const CreateGameScreen = ({navigation})=>{
 	const dispatch = useDispatch();
 	const players = useSelector((state)=>state.players);
+	const [playerProfiles, setPlayerProfiles] = useState();
+	const [checked, setChecked] = useState(null);
+	const [name, setName] = useState('');
+	const [loading, setLoading] = useState(true);
+	const [showHelp, setShowHelp] = useState(false);
 	const createPlayerObj = (profiles)=>{
 		const playerObj = {}
 		if (profiles && profiles.length > 0){
@@ -29,19 +34,17 @@ const CreateGameScreen = ({navigation})=>{
 		setPlayerProfiles(createPlayerObj(response));
 		setLoading(false);
 	}
-	const [playerProfiles, setPlayerProfiles] = useState();
-	const [checked, setChecked] = useState(null);
-	const [name, setName] = useState('');
-	const [loading, setLoading] = useState(true);
-	useEffect(()=>{
-		fetch();
-	}, []);
 	
-	const [visible, setVisible] = useState(false);
+	const toggleHelpOverlay = () =>{
+		setShowHelp(!showHelp);
+	}
 
-	const toggleOverlay = () => {
-		setVisible(!visible);
-	};
+	useEffect(()=>{
+		console.log('arrived');
+		fetch();
+		navigation.setParams({toggleHelpOverlay});
+	}, []);
+
 	if (loading){
 		return <Loading/>;
 	}
@@ -60,6 +63,7 @@ const CreateGameScreen = ({navigation})=>{
 				<FlatList
 					data={players}
 					keyExtractor={(p)=>p.name}
+					showsVerticalScrollIndicator={false}
 					ListHeaderComponent={
 						<View>
 							<Text style={styles.label}>Name</Text>
@@ -128,6 +132,20 @@ const CreateGameScreen = ({navigation})=>{
 						)
 					}}
 				/>
+				<Overlay isVisible={showHelp} onBackdropPress={toggleHelpOverlay} overlayStyle={styles.overlay}>
+					<View>
+						<View style={{flexDirection:'row', marginBottom:10, marginTop:5, marginLeft:5}}>
+							<MaterialCommunityIcons name='help-circle' size={35} color='#02a1e6' style={{marginRight:10}}/>
+							<Text style={styles.title}>Help</Text>
+						</View>
+						<Text style={styles.text}>To start tracking a game you will need to provide a name and select a player</Text>
+						<Text style={styles.text}>Create a player profile if you haven't created one</Text>
+						<Text style={styles.text}>Provide a name so you can reference the game later on </Text>
+						<Text style={styles.text}>Select the profile of the player that is playing</Text>
+						<Text style={styles.text}>Press Track Game and start tracking!</Text>
+
+					</View>
+				</Overlay>
 				<Button 
 					title="Track Game" 
 					buttonStyle={{height:height*0.06,borderRadius:50, backgroundColor:'#02a1e6'}}
@@ -166,7 +184,7 @@ const styles = StyleSheet.create({
 		marginBottom:10
 	},
 	link:{
-		fontSize:16, 
+		fontSize:18, 
 		fontWeight:'bold', 
 		marginRight:20, 
 		marginTop:20, 
@@ -207,6 +225,20 @@ const styles = StyleSheet.create({
 	    backgroundColor: '#fff',
 	    elevation: 2, // Android
 	},
+	overlay:{
+		borderRadius:25,
+		width:width*0.9,
+		padding:20
+	},
+	text:{
+		fontSize:20,
+		marginVertical:10,
+		marginHorizontal:10
+	},
+	title:{
+		fontSize:25,
+		color:'#02a1e6'
+	}
 })
 
 

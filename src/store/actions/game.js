@@ -49,9 +49,7 @@ export const finishGame = (stats, minutes)=>{
 export const fetchGames = ()=>{
 	return async dispatch =>{
 		try{
-			console.log('arrived');
 			const response = await apiCall.get('/games');
-			console.log(response.data);
 			dispatch(getGames(response.data));
 		}catch(err){
 			dispatch(addErrorMessage(err.response.data));

@@ -41,23 +41,22 @@ export const authUser = ()=>{
 	  				await AsyncStorage.setItem('token', token);
 	  				dispatch(setToken(token));
 					dispatch(clearErrorMessage());
-					navigate('gameFlow'); 
+					navigate('CreateGame'); 
 				}else{
 					console.log('not expired')
-	  				await AsyncStorage.setItem('token', token);
 	  				dispatch(setToken(token));
 					dispatch(clearErrorMessage());
-					navigate('gameFlow'); 
+					navigate('CreateGame'); 
 				}
 			}else{
 				console.log('no token');
-				navigate('Signup');
+				navigate('loginFlow');
 			}
 		}catch(err){
 			console.log('Error')
 			console.log(err.response.data.error);
 			dispatch(logout());
-			navigate('Signup');
+			navigate('loginFlow');
 		}
 		
 	}
@@ -86,7 +85,7 @@ export const signout =()=>{
 		try{
 			await AsyncStorage.removeItem('token');
   			dispatch(logout());
-  			navigate('Signup');
+  			navigate('loginFlow');
 		}catch(err){
 			dispatch(addErrorMessage(err.response.data.error));
 		}
