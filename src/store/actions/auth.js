@@ -78,6 +78,20 @@ export const signin =(type, formData)=>{
 	}
 }
 
+export const fbLogin = (fbtoken) =>{
+	return async dispatch =>{
+		try{
+			const response = await apiCall.post('/facebooklogin', {token:fbtoken});
+			const {token} = response.data;
+			await AsyncStorage.setItem('token', token);
+			dispatch(setToken(token));
+			dispatch(clearErrorMessage());
+			navigate('gameFlow');
+		}catch(err){
+			dispatch(addErrorMessage(err.response.data.error));
+		}
+	}
+}
 
 
 export const signout =()=>{

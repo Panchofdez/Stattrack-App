@@ -3,8 +3,9 @@ import {useSelector, useDispatch} from 'react-redux';
 import {View, StyleSheet} from 'react-native';
 import {Text, Button, Input} from 'react-native-elements';
 import Spacer from './Spacer';
-import {signin} from '../store/actions/auth';
-
+import * as Facebook from 'expo-facebook';
+import {signin, fbLogin} from '../store/actions/auth';
+import {FontAwesome} from '@expo/vector-icons';
 
 
 const AuthForm = ({btnText, type})=>{
@@ -12,6 +13,18 @@ const AuthForm = ({btnText, type})=>{
 	const dispatch = useDispatch();
 	const [email, setEmail] = useState("");
 	const [password, setPassword]= useState("");
+	const facebookLogin = async() => {
+		await Facebook.initializeAsync('593232511571616');
+		const {type,token}= await Facebook.logInWithReadPermissionsAsync({permissions:['public_profile']});
+		if(type==='success'){
+			console.log('success')
+			console.log(token);
+			dispatch(fbLogin(token));
+		}else{
+			console.log('cancelled');
+			return;
+		}
+	}
 	return (
 		<View style={styles.container}>
 			<Spacer>
@@ -43,6 +56,16 @@ const AuthForm = ({btnText, type})=>{
 			<Spacer>
 				<Button title={btnText} onPress={()=>dispatch(signin(type, {email,password }))} buttonStyle={styles.button}/>
 			</Spacer>
+			<Spacer>
+				<Button 
+					title={`${btnText} with Facebook`} 
+					onPress={()=>facebookLogin()} 
+					buttonStyle={styles.facebookBtn}
+					icon={
+						<FontAwesome name='facebook-square' size={30} color='white' style={{marginRight:10}}/>
+					}
+				/>
+			</Spacer>
 		</View>
 	)
 }
@@ -61,7 +84,12 @@ const styles= StyleSheet.create({
 	    marginLeft: 25,
 	},
 	container:{
-		marginTop:50
+		marginTop:110
+	},
+	facebookBtn:{
+		backgroundColor:'#3b5998',
+		borderRadius:25,
+		height:50
 	}
 }); 
 
