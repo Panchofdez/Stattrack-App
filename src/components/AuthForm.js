@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Image} from 'react-native';
 import {Text, Button, Input} from 'react-native-elements';
 import Spacer from './Spacer';
 import * as Facebook from 'expo-facebook';
@@ -27,6 +27,12 @@ const AuthForm = ({btnText, type})=>{
 	}
 	return (
 		<View style={styles.container}>
+			<View style={{height:150, backgroundColor:'white', alignItems:'center'}}>
+				<Image 
+					source={require('../../assets/stlogo3.png')}
+					style={{height:140,width:140, borderRadius:60}}
+				/>
+			</View>
 			<Spacer>
 				<Input
 					label="Email"
@@ -84,7 +90,7 @@ const styles= StyleSheet.create({
 	    marginLeft: 25,
 	},
 	container:{
-		marginTop:110
+		marginTop:10
 	},
 	facebookBtn:{
 		backgroundColor:'#3b5998',

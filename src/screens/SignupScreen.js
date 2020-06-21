@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, SafeAreaView} from 'react-native';
+import {StyleSheet, View, SafeAreaView, ScrollView} from 'react-native';
 import {Text, Button} from 'react-native-elements';
 import { NavigationEvents} from 'react-navigation';
 import {useDispatch} from 'react-redux';
@@ -12,8 +12,10 @@ const SignupScreen = ({navigation})=>{
 	return (
 		<SafeAreaView style={styles.container}>
 			<NavigationEvents onWillFocus={()=>dispatch(clearErrorMessage())} />
-			<AuthForm btnText="Sign Up" type="signup"/>
-			<NavLink text='Sign in instead' navigation={navigation} route='Signin'/>
+			<ScrollView centerContent={true} contentContainerStyle={{paddingTop:125}}>
+				<AuthForm btnText="Sign Up" type="signup"/>
+				<NavLink text='Sign in instead' navigation={navigation} route='Signin'/>
+			</ScrollView>
 		</SafeAreaView>
 	)
 }

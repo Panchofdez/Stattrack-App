@@ -138,11 +138,10 @@ const CreateGameScreen = ({navigation})=>{
 							<MaterialCommunityIcons name='help-circle' size={35} color='#02a1e6' style={{marginRight:10}}/>
 							<Text style={styles.title}>Help</Text>
 						</View>
-						<Text style={styles.text}>To start tracking a game you will need to provide a name and select a player</Text>
-						<Text style={styles.text}>Create a player profile if you haven't created one</Text>
-						<Text style={styles.text}>Enter a name for the game you will track</Text>
-						<Text style={styles.text}>Select the profile of the player that is playing</Text>
-						<Text style={styles.text}>Press Track Game and start tracking!</Text>
+						<Text style={styles.text}>1. Create a player profile if you haven't created one</Text>
+						<Text style={styles.text}>2. Enter a name for the game you will track</Text>
+						<Text style={styles.text}>3. Select the profile of the player that is playing</Text>
+						<Text style={styles.text}>4. Press "Track Game" and start tracking!</Text>
 
 					</View>
 				</Overlay>

@@ -214,10 +214,10 @@ const GameScreen =({navigation})=>{
 						<MaterialCommunityIcons name='help-circle' size={35} color='#02a1e6' style={{marginRight:10}}/>
 						<Text style={styles.title}>Help</Text>
 					</View>
-					<Text style={styles.text}>Tap to increase the stat</Text>
-					<Text style={styles.text}>Press and hold to decrease the stat</Text>
-					<Text style={styles.text}>When you are done tracking the game press Game Over</Text>
-					<Text style={styles.text}>If you didn't use our timer to track the minutes played you will be prompted to input the number of minutes</Text>
+					<Text style={styles.text}>1. Tap to increase the stat</Text>
+					<Text style={styles.text}>2. Press and hold to decrease the stat</Text>
+					<Text style={styles.text}>3. When you are done tracking the game press Game Over</Text>
+					<Text style={styles.text}>4. If you didn't use our timer to track the minutes played you will be prompted to input the number of minutes</Text>
 
 				</View>
 			</Overlay>
