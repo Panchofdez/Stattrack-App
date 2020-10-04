@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "soccerdad_app",
-    "slug": "soccerdad_app",
+    "name": "StatTrack",
+    "slug": "stattrack",
     "platforms": [
       "ios",
       "android",
@@ -23,6 +23,7 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "Track player's stats during games and create a statistical player profile."
   }
 }
